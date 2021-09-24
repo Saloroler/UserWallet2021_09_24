@@ -19,7 +19,7 @@ func NewTokenRepo(db *gorm.DB) TokenRepo {
 }
 
 func (r *TokenRepo) Create(token models.Token) error {
-	err := r.db.Table("token").Create(&token).Error
+	err := r.db.Table("tokens").Create(&token).Error
 	if err != nil {
 		logger.LogError("Failed to create token err: ", err)
 		return err
@@ -30,7 +30,7 @@ func (r *TokenRepo) Create(token models.Token) error {
 
 func (r *TokenRepo) FindByUserID(userID int) (models.Token, error) {
 	var token models.Token
-	err := r.db.Table("token").Where("user_id = ?", userID).First(&token).Error
+	err := r.db.Table("tokens").Where("user_id = ?", userID).First(&token).Error
 	if err != nil {
 		logger.LogError("Failed to get user err: ", err)
 		return models.Token{}, err

@@ -20,7 +20,7 @@ func NewUserRepo(db *gorm.DB) UserRepo {
 
 func (r *UserRepo) Find(id string) (models.User, error) {
 	var user = models.User{}
-	err := r.db.Table("user").First(&user, id).Error
+	err := r.db.Table("users").First(&user, id).Error
 	if err != nil {
 		logger.LogError("Failed to get user err: ", err)
 		return models.User{}, err
@@ -29,7 +29,7 @@ func (r *UserRepo) Find(id string) (models.User, error) {
 }
 
 func (r *UserRepo) Create(user models.User) (models.User, error) {
-	result := r.db.Table("user").Create(&user) // ID will be inserted
+	result := r.db.Table("users").Create(&user) // ID will be inserted
 	if result.Error != nil {
 		logger.LogError("Failed to add user err: ", result.Error) // always print errors where they happened
 		return models.User{}, result.Error
